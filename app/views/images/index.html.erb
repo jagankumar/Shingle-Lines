@@ -13,12 +13,12 @@
 
   <div class="slideshow-container">
 
-    <%= select_tag :odr_err_select, options_for_select(@options) %>
+    <%= select_tag :odr_err_select, options_for_select(@options),:id => "dropdown" %>
     <br/><br/>
-    <% @array.each do |foo| %>
-      <div class="mySlides fade">
+    <% @json_response.each do |foo| %>
+      <div class="mySlides fade"  id="<%= foo['name'].delete(' ') %>">
         <!--        <div class="numbertext"><%#= @array.count %> Images</div>-->
-        <img src="<%= foo %>" style="width:100%">
+        <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
       </div>
     <% end %>
 
@@ -38,9 +38,10 @@
   <div class="slideshow-container">
 
     <div class="row">
-      <% @array.each do |foo| %>
+      <% @json_response.each do |foo| %>
         <div class="column">
-          <img src="<%= foo %>" style="width:100%">
+          <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
+          <small><%= foo['name'] %></small>
         </div>
       <% end %>
     </div>
@@ -87,6 +88,15 @@
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
     }
+
+    $('document').ready(function(){
+        $("#dropdown").change(function(){
+            var dropdownVal = $("#dropdown").val().split(' ').join('');
+            // var newVal = dropdownVal.split(' ').join('');
+            $('.mySlides').hide();
+            $('#'+dropdownVal).show();
+        });
+    });
 </script>
 
 
