@@ -1,3 +1,4 @@
+<%# This is home page where we can see the images %>
 <!DOCTYPE html>
 <html>
 <title>
@@ -10,18 +11,17 @@
   </h1>
 </header>
 <main>
-
   <div class="slideshow-container">
-
-    <%= select_tag :odr_err_select, options_for_select(@options),:id => "dropdown" %>
+    <%= select_tag :parent_image, "<option value=''>Select Value</option>".html_safe + options_for_select(@options), :onchange => "selectImage(this)" %>
     <br/><br/>
-    <% @json_response.each do |foo| %>
-      <div class="mySlides fade"  id="<%= foo['name'].delete(' ') %>">
-        <!--        <div class="numbertext"><%#= @array.count %> Images</div>-->
-        <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
-      </div>
-    <% end %>
-
+    <div id="imgSlider">
+      <% @json_response.each do |foo| %>
+        <div class="mySlides fade">
+          <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
+        </div>
+      <% end %>
+    </div>
+    </div>
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
@@ -42,6 +42,7 @@
         <div class="column">
           <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
           <small><%= foo['name'] %></small>
+
         </div>
       <% end %>
     </div>
@@ -58,17 +59,14 @@
 <script>
     var slideIndex = 1;
     showSlides(slideIndex);
-
     // Next/previous controls
     function plusSlides(n) {
         showSlides(slideIndex += n);
     }
-
     // Thumbnail image controls
     function currentSlide(n) {
         showSlides(slideIndex = n);
     }
-
     function showSlides(n) {
         var i;
         var slides = document.getElementsByClassName("mySlides");
@@ -89,14 +87,36 @@
         dots[slideIndex - 1].className += " active";
     }
 
-    $('document').ready(function(){
-        $("#dropdown").change(function(){
-            var dropdownVal = $("#dropdown").val().split(' ').join('');
-            // var newVal = dropdownVal.split(' ').join('');
-            $('.mySlides').hide();
-            $('#'+dropdownVal).show();
+    function selectImage() {
+        var select = $("#parent_image").val();
+        var imgSlider = "";
+        var imgSliderBottom ="";
+        $.ajax({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            url: "/images/child_images",
+            data: {select_value: select},
+            type: "POST",
+            success: function (data) {
+                data: {
+                    // result: json.response
+                }
+                // Where we get image urls and pass it to element
+                console.log(data.urls);
+                for(i=0; i < data.urls.length; i++){
+                    // console.log(i, " : ", data.urls[i]);
+                    imgSlider += '<div class="mySlides fade"><img src="'+data.urls[i]+'" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">'+data.options[i]+'</div></div>';
+                    imgSliderBottom += '<div class="column"> <img src="'+data.urls[i]+'" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">'+data.options[i]+'</div></div>';
+                }
+                console.log(imgSlider);
+                $("#imgSlider").html(imgSlider);
+                $(".row").html(imgSliderBottom);
+                plusSlides(1);
+            }
         });
-    });
+    }
+
 </script>
 
 

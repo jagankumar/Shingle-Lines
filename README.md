@@ -21,4 +21,8 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* Assets information 
+  All Css has written in images.css.scss 
+  
+  
+  

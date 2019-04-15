@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   #root "images_controller#index"
   root to: "images#index"
   get 'images/index'
-
+  post 'images/child_images'
 end
