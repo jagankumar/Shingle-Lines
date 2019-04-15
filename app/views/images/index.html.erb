@@ -67,6 +67,7 @@
     function currentSlide(n) {
         showSlides(slideIndex = n);
     }
+    // This method is  jquery slider method which is included with iteration it will adjust as per count and have the provision to move the slide.
     function showSlides(n) {
         var i;
         var slides = document.getElementsByClassName("mySlides");
@@ -86,7 +87,7 @@
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
     }
-
+  // This method is for showing images on slider and making AJAX call to get urls and names response from controller
     function selectImage() {
         var select = $("#parent_image").val();
         var imgSlider = "";
