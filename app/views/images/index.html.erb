@@ -20,6 +20,7 @@
     <td>
       <small id ="user"><%=current_user.id %></small>
       <button id="email-btn" type="button" onclick="emailFriend();">Email to Friend</button>
+      <button type="submit" form="form1" id="bookmark" value="Submit" >Add as Bookmark</button><br>
     </td>
     <form>
       <input type="email" name="Email" class="Hidebox" size="35" placeholder="Enter email">
@@ -77,6 +78,9 @@
     $('#email-btn').hide();
     $('#make-fav').hide();
     $('#zip').hide();
+    $('#bookmark').hide();
+
+
 
 
     // Next/previous controls
@@ -114,6 +118,7 @@
 
     // This method is for showing images on slider and making AJAX call to get urls and names response from controller
     function selectImage() {
+        $('#bookmark').show();
         var select = $("#parent_image").val();
         var imgSlider = "";
         var imgSliderBottom = "";
@@ -204,6 +209,20 @@
     }
 
 
+        $('#bookmark').click(function() {
+            var imageName = $('.activeSlide div').html();
+            var imageUrl = $('.activeSlide img').attr('src');
+            if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+                window.sidebar.addPanel(imageName, imageUrl, '');
+            } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
+                window.external.AddFavorite(imageUrl, imageName);
+            } else if (window.opera && window.print) { // Opera Hotlist
+                this.title = imageName;
+                return true;
+            } else { // webkit - safari/chrome
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        });
 
 </script>
 
