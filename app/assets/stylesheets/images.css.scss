@@ -20,7 +20,7 @@
   width: auto;
   margin-top: -22px;
   padding: 16px;
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
@@ -104,11 +104,7 @@ h1 {
 }
 
 /* Clear floats after image containers */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+
 .Hidebox{
   display: none;
   margin-bottom: 13px
@@ -159,3 +155,4 @@ h1 {
 #bookmark{
   margin-bottom: 6px;
 }
+
