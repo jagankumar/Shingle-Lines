@@ -6,14 +6,26 @@
 </title>
 <body>
 <header>
+  <div style="text-align: center;">
+    <h4 class="flash-msg" style="display: inline-block"></h4>
+  </div>
   <h1>
     Shingle Lines
   </h1>
 </header>
 <main>
   <div class="slideshow-container">
-    <%= select_tag :parent_image, "<option value=''>Select Value</option>".html_safe + options_for_select(@options), :onchange => "selectImage(this)" %>
+    <%= select_tag :parent_image, "<option value=''>Select Value</option>".html_safe + options_for_select(@options), :onchange => "selectImage(this)", :class =>"parent"%>
     <br/><br/>
+    <td>
+      <small id ="user"><%=current_user.id %></small>
+      <button id="email-btn" type="button" onclick="emailFriend();">Email to Friend</button>
+    </td>
+    <form>
+      <input type="email" name="Email" class="Hidebox" size="35" placeholder="Enter email">
+      <button type="submit" form="form1" id="submitButton" value="Submit" onclick="emailSubmit();">Submit</button>
+
+    </form>
     <div id="imgSlider">
       <% @json_response.each do |foo| %>
         <div class="mySlides fade">
@@ -21,9 +33,9 @@
         </div>
       <% end %>
     </div>
-    </div>
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
   </div>
 
@@ -43,6 +55,7 @@
           <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
           <small><%= foo['name'] %></small>
 
+
         </div>
       <% end %>
     </div>
@@ -59,14 +72,23 @@
 <script>
     var slideIndex = 1;
     showSlides(slideIndex);
+
+    $('.flash-msg').hide();
+    $('#email-btn').hide();
+    $('#make-fav').hide();
+    $('#zip').hide();
+
+
     // Next/previous controls
     function plusSlides(n) {
         showSlides(slideIndex += n);
     }
+
     // Thumbnail image controls
     function currentSlide(n) {
         showSlides(slideIndex = n);
     }
+
     // This method is  jquery slider method which is included with iteration it will adjust as per count and have the provision to move the slide.
     function showSlides(n) {
         var i;
@@ -80,18 +102,21 @@
         }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
+            slides[i].className = slides[i].className.replace(" activeSlide", "");
         }
         for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
+            // dots[i].className = dots[i].className.replace(" active", "");
         }
         slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
+        // dots[slideIndex - 1].className += " active";
+        slides[slideIndex - 1].className += " activeSlide";
     }
-  // This method is for showing images on slider and making AJAX call to get urls and names response from controller
+
+    // This method is for showing images on slider and making AJAX call to get urls and names response from controller
     function selectImage() {
         var select = $("#parent_image").val();
         var imgSlider = "";
-        var imgSliderBottom ="";
+        var imgSliderBottom = "";
         $.ajax({
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
@@ -104,19 +129,81 @@
                     // result: json.response
                 }
                 // Where we get image urls and pass it to element
-                console.log(data.urls);
-                for(i=0; i < data.urls.length; i++){
+                // console.log(data.urls);
+                for (i = 0; i < data.urls.length; i++) {
                     // console.log(i, " : ", data.urls[i]);
-                    imgSlider += '<div class="mySlides fade"><img src="'+data.urls[i]+'" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">'+data.options[i]+'</div></div>';
-                    imgSliderBottom += '<div class="column"> <img src="'+data.urls[i]+'" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">'+data.options[i]+'</div></div>';
+                    imgSlider += '<div class="mySlides fade"><img src="' + data.urls[i] + '" style="width:100%"><div style="float: left; " class="imgtitle">' + data.options[i] + '</div><button style=" margin-left: 25px;" onclick="makeFav();">Add as Favourite</button></div>';
+                    imgSliderBottom += '<div class="column"> <img src="' + data.urls[i] + '" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">' + data.options[i] + '</div></div>';
+
                 }
-                console.log(imgSlider);
+                // console.log(imgSlider);
                 $("#imgSlider").html(imgSlider);
                 $(".row").html(imgSliderBottom);
                 plusSlides(1);
+                $('#email-btn').show();
+
             }
         });
     }
+
+    function emailFriend() {
+        $(".Hidebox").show();
+        $("#submitButton").show();
+    }
+    // function enterZip() {
+    //     $(".zipcode").show();
+    //     $("#zipButton").show();
+    // }
+
+    function emailSubmit() {
+
+        var email = $(".Hidebox").val();
+        var imageUrl = $('.activeSlide img').attr('src');
+        console.log("imageUrl: ", imageUrl);
+        $.ajax({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            url: "/images/email_to_friend",
+            data: {email: email, imgurl: imageUrl},
+            type: "POST",
+            success: function (data) {
+                data: {
+                    result: "Email sent sucessfully"
+                }
+                $(".Hidebox").hide();
+                $("#submitButton").hide();
+                $('.Hidebox').val("");
+                $('.flash-msg').show();
+                $('.flash-msg').html(data.success);
+
+            }
+        });
+
+    }
+
+    function makeFav() {
+        var name = $('.activeSlide div').html();
+        var user_id = $('#user').html();
+        var imageUrl = $('.activeSlide img').attr('src');
+        $.ajax({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            url: "/images/add_favourite",
+            data: {name: name, user_id: user_id,img_url:imageUrl},
+            type: "POST",
+            success: function (data) {
+                data: {
+                }
+                $('.flash-msg').show();
+                $('.flash-msg').html(data.success);
+            }
+        });
+
+    }
+
+
 
 </script>
 
