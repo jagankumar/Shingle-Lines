@@ -18,15 +18,24 @@
     <%= select_tag :parent_image, "<option value=''>Select Value</option>".html_safe + options_for_select(@options), :onchange => "selectImage(this)", :class =>"parent"%>
     <br/><br/>
     <td>
-      <small id ="user"><%=current_user.id %></small>
-      <button id="email-btn" type="button" onclick="emailFriend();">Email to Friend</button>
-      <button type="submit" form="form1" id="bookmark" value="Submit" >Add as Bookmark</button><br>
+    <small id ="user"><%=current_user.id %></small>
+    <button id="email-btn" type="button" onclick="emailFriend();">Email to Friend</button>
+    <button type="submit" form="form1" id="bookmark" value="Submit" >Add as Bookmark</button>
+      <button id="zip-btn" type="button" onclick="Addzip();">Enter new Zipcode</button>
     </td>
     <form>
-      <input type="email" name="Email" class="Hidebox" size="35" placeholder="Enter email">
+    <input type="email" name="Email" class="Hidebox" size="35" placeholder="Enter email">
       <button type="submit" form="form1" id="submitButton" value="Submit" onclick="emailSubmit();">Submit</button>
 
+  </form>
+    <div>
+    <form class="newZip">
+      <%= form_tag( '/images/new_response', :method => :get ) do %>
+        <%= text_field_tag :zip_code%>
+        <%= submit_tag("Submit zipcode") %>
+      <% end %>
     </form>
+    </div>
     <div id="imgSlider">
       <% @json_response.each do |foo| %>
         <div class="mySlides fade">
@@ -77,12 +86,9 @@
     $('.flash-msg').hide();
     $('#email-btn').hide();
     $('#make-fav').hide();
-    $('#zip').hide();
+    $('#zip-btn').hide();
     $('#bookmark').hide();
-
-
-
-
+    $('.newZip').hide();
     // Next/previous controls
     function plusSlides(n) {
         showSlides(slideIndex += n);
@@ -146,6 +152,7 @@
                 $(".row").html(imgSliderBottom);
                 plusSlides(1);
                 $('#email-btn').show();
+                $('#zip-btn').show();
 
             }
         });
@@ -155,10 +162,14 @@
         $(".Hidebox").show();
         $("#submitButton").show();
     }
-    // function enterZip() {
-    //     $(".zipcode").show();
-    //     $("#zipButton").show();
-    // }
+    // $( "#zip-btn" ).click(function() {
+    //
+    // });
+    function Addzip(){
+        $(".newZip").show();
+
+     }
+
 
     function emailSubmit() {
 

@@ -2,9 +2,11 @@ class ImagesController < ApplicationController
   require 'net/http'
   require 'json'
 # This method call when we call home page
-  @zip_code
   def index
-
+    params[:zip_code]
+  if params[:zip_code].present?
+    redirect_to images_new_response_path(:zip => params[:zip_code] )
+  else
     @json_response = get_response
     @array = []
     @options = []
@@ -12,6 +14,7 @@ class ImagesController < ApplicationController
       # @array.push(foo['hero_1600x565_url'])
       @options.push(foo['name'])
     end
+  end
   end
 
 # This is method which is called by AJAX request and based selected parameter will give the response
@@ -57,7 +60,21 @@ class ImagesController < ApplicationController
     msg = {'success' => success
     }
     render json: msg
+  end
+
+  def new_response
+    zip = params[:zip]
+    url = "https://mdms.owenscorning.com/api/v1/product/shingles?zip=#{zip}"
+    uri = URI(url)
+    response = Net::HTTP.get(uri)
+    @json_response = JSON.parse(response)
+    @array = []
+    @options = []
+    @json_response.each do |foo|
+      # @array.push(foo['hero_1600x565_url'])
+      @options.push(foo['name'])
     end
+  end
   private
 # This is private method which we can call across same class level and getting api response to this
 

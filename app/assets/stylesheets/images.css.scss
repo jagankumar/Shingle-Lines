@@ -133,6 +133,17 @@ h1 {
   display: inline-block;
   font-size: 16px;
   }
+#zip-btn {
+  margin-bottom: 6px;
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 9px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
 
 #make-fav {
 
@@ -149,10 +160,19 @@ h1 {
 #user{
     display: none;
   }
-.zipcode{
-  display: none;
-}
+
 #bookmark{
   margin-bottom: 6px;
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 9px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
-
+.newZip{
+  //display: none !important;
+  margin-bottom: 10px;
+}
