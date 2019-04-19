@@ -34,6 +34,7 @@ gem 'jquery-rails'
 # gem 'capistrano-rails', group: :development
 gem 'axios_rails'
 gem 'devise'
+gem 'activeadmin'
 
 
 group :development, :test do

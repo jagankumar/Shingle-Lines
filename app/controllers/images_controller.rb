@@ -53,13 +53,32 @@ class ImagesController < ApplicationController
     puts params[:name]
     puts params[:user_id]
     puts params[:img_url]
-    fav = Favourite.create(:image_name=> params[:name],:user_id => params[:user_id], :img_url => params[:img_url])
-
-    fav.save!
+    old_fav = Favourite.where(:image_name=> params[:name],:user_id => params[:user_id], :img_url => params[:img_url])
+    if !old_fav.present?
+      fav = Favourite.create(:image_name=> params[:name],:user_id => params[:user_id], :img_url => params[:img_url])
+      fav.save!
+      @like = Like.where(:image_name=> params[:name],:img_url => params[:img_url])
+      if @like.present?
+        puts "Inside iffffffffffffffffffffffffffff"
+        like_count = @like.count
+        puts like_count
+        new_count =    like_count += 1
+        puts "GGGGGGGGGGGGGGGGGGGGGGGGG"
+       puts new_count
+        @like.update_attributes(:like_count => new_count)
+      else
+      like = Like.create(:image_name=> params[:name],:img_url => params[:img_url],:like_count=> 1)
+      puts like.like_count
+      like.save
+      end
     success = "Added as favourite"
     msg = {'success' => success
     }
     render json: msg
+    else
+      flash[:notice] = "You  have already added this as favourite"
+      redirect_to images_index_path
+      end
   end
 
   def new_response
