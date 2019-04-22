@@ -1,5 +1,5 @@
 ActiveAdmin.register Like do
-  permit_params :image_name, :like_count
+  permit_params :image_name, :like_count,:img_url
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -21,5 +21,12 @@ ActiveAdmin.register Like do
       image_tag image.img_url, class: 'my_image_size'
     end
     actions
+  end
+
+  form do |f|
+    f.inputs 'Update Likes' do
+      f.input :like_count
+    end
+    f.actions
   end
 end
