@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fcccc416-1c17-421c-bee3-5817817c855e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/likes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/likes.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/favourite_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/favourite_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/images_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/images_controller.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/favourite/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/favourite/index.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/images/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/images/index.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/initializers/active_admin.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/initializers/active_admin.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,8 +87,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/favourite/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+            <state relative-caret-position="119">
+              <caret line="7" column="55" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -408,12 +399,12 @@
       <option name="presentableId" value="Default" />
       <updated>1554881652253</updated>
       <workItem from="1554881654063" duration="7756000" />
-      <workItem from="1555084824543" duration="110839000" />
+      <workItem from="1555084824543" duration="111473000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119261000" />
+    <option name="totallyTimeSpent" value="119895000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -426,6 +417,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="20" width="1260" height="640" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49863762" visible="true" weight="0.36833334" />
       <window_info id="Structure" order="1" sideWeight="0.50248754" side_tool="true" weight="0.24291497" />
@@ -440,7 +432,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.13385826" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.4547244" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2933071" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -743,8 +735,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/favourite/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        <state relative-caret-position="119">
+          <caret line="7" column="55" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="55" />
         </state>
       </provider>
     </entry>

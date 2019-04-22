@@ -5,7 +5,7 @@
 <div>
   <img src="<%= fav.img_url %>" style="width:30%">
   </div><br>
-  <div><strong>Total Likes<%@like = Like.where(:image_name => fav.image_name).first %> <%= @like.like_count%> -- <%= fav.image_name %></strong>
+  <div><strong>Total Likes<%@like = Like.where(:img_url => fav.img_url).first %> <%= @like.like_count%> -- <%= fav.image_name %></strong>
     </div>
 
 <% end %>
