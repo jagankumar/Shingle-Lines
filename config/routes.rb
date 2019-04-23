@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   post 'images/add_favourite'
   post 'images/get_response'
   get 'favourite/index'
-  # get 'images/new_response'
+  post 'bookmarks/create_bookmark'
+  get 'bookmarks/index'
 end

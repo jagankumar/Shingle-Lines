@@ -220,7 +220,23 @@
 
         $('#bookmark').click(function() {
             var imageName = $('.activeSlide div').html();
-            var imageUrl = $('.activeSlide img').attr('src');
+            var imgPath = $('.activeSlide img').attr('src');
+            var baseUrl = window.location.origin;
+            var random = Math.floor(Math.random() * 1000);
+            var imageUrl = baseUrl+"/bookmarks/index?bookmark_code="+random
+            $.ajax({
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                },
+                url: "/bookmarks/create_bookmark",
+                data: {name: imageName, img_path: imgPath, bookmarkCode:random},
+                type: "POST",
+                success: function (data) {
+                    data: {
+                        result: "Email sent sucessfully"
+                    }
+                }
+            });
             if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
                 window.sidebar.addPanel(imageName, imageUrl, '');
             } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
