@@ -1,4 +1,5 @@
 class BookmarksController < ApplicationController
+
   skip_before_action :authenticate_user!
   def create_bookmark
     puts params[:name]
@@ -10,5 +11,7 @@ class BookmarksController < ApplicationController
   def index
    puts params[:bookmark_code]
     @bookmark = Bookmark.where(:bookmark_code => params[:bookmark_code]).first
+   render :layout => false
+
   end
 end

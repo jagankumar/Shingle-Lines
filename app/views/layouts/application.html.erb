@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <h1>
+      Shingle Lines
+    </h1>
     <title>ShingleLines</title>
     <%= csrf_meta_tags %>
 
@@ -8,10 +11,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <div class="side-menu">
     <% if user_signed_in? %>
-      Signed in as <%= current_user.email %>&nbsp;&nbsp;
-      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-        <% end %>
+
+      Welcome! <%= current_user.email %>&nbsp;&nbsp;
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>&nbsp;&nbsp;
+      <%= link_to "Home", images_index_path %>&nbsp;&nbsp;
+      <%= link_to "Your Favourites ", favourite_index_url, class: "pull-left" %><br><br><br>
+        <% end %></div>
   </head>
 
   <body>

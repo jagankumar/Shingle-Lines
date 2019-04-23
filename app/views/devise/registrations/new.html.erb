@@ -1,29 +1,33 @@
-<h2>Sign up</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<center><h3>Sign up</h3></center>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <center><div class="container">
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <%= f.label :email ,:class=>"field-lable"%><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",:class =>"pass-field",:placeholder=>"Enter Email" %>
 
-  <div class="field">
-    <%= f.label :password %>
+    <%= f.label :password ,:class=>"field-lable"%>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <%= f.password_field :password, autocomplete: "new-password",:class =>"pass-field",:placeholder=>"Enter password" %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <%= f.label :password_confirmation,:class=>"field-lable" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",:class =>"pass-field",:placeholder=>"Repeat Password" %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+    <%= f.submit "Sign up",:class=>"registerbtn" %>
+    <%= render "devise/shared/links" %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+</div></center>
+</body>
+</html>

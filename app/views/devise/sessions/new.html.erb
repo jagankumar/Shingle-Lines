@@ -1,26 +1,31 @@
-<h2>Log in</h2>
 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <center><div class="container">
+    <h3>Login</h3>
+    <hr>
+    <%= f.label :email,:class=>"field-lable"%><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",:class =>"pass-field" ,:placeholder=>"Enter Email"%>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+    <%= f.label :password, :class=>"field-lable"%><br />
+    <%= f.password_field :password, autocomplete: "current-password",:placeholder=>"Enter Password",:class =>"pass-field" %>
+    <%= f.submit "Log in",:class=>"registerbtn" %>
+    <%= render "devise/shared/links" %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+  </div></center>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+<%end %>
+</body>
+</html>
 
-<%= render "devise/shared/links" %>
+
+
+
+
+
