@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #
   #resources :images
 
-  root to: "home#index"
+  root to: "images#index"
   get 'images/index'
   post 'images/child_images'
   post 'images/email_to_friend'

@@ -16,7 +16,7 @@
 .prev, .next {
   cursor: pointer;
   position: absolute;
-  top: 50%;
+  top: 54%;
   width: auto;
   margin-top: -22px;
   padding: 16px;
@@ -122,31 +122,8 @@ h1 {
   width: 50%;
   padding: 2px 2px;
 }
-#email-btn {
-  margin-bottom: 6px;
-  background-color: #008CBA;
-  border: none;
-  color: white;
-  padding: 9px 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  }
-#zip-btn {
-  margin-bottom: 6px;
-  background-color: #008CBA;
-  border: none;
-  color: white;
-  padding: 9px 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 
 #make-fav {
-
   background-color: #008CBA;
   border: none;
   color: white;
@@ -157,22 +134,26 @@ h1 {
   font-size: 16px;
   margin-left: 18px;
 }
-#user{
-    display: none;
-  }
-
-#bookmark{
-  margin-bottom: 6px;
+.shingle-button{
   background-color: #008CBA;
   border: none;
   color: white;
-  padding: 9px 5px;
+  padding: 6px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  margin-left: 18px;
+
 }
+#user{
+    display: none;
+  }
+
 .newZip{
   //display: none !important;
   margin-bottom: 10px;
+}
+#parent_image{
+  padding: 6px;
 }

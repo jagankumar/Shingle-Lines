@@ -1,11 +1,30 @@
-<div><%= link_to "Home", images_index_path %></div>
+&nbsp;	&nbsp;	&nbsp;<%= link_to "Home", images_index_path %>
 <h1>Your Favourites</h1>
+<center>
+<table>
+  <tr>
+    <th style="width:25%">Image Name</th>
+    <th style="width:50%">Image Preview</th>
+    <th style="width:25%">Total Favorites</th>
+  </tr>
 
-<%@favourites.select("DISTINCT img_url,image_name").each do|fav|  %>
-<div>
-  <img src="<%= fav.img_url %>" style="width:30%">
-  </div><br>
-  <div><strong>Total Likes<%@like = Like.where(:img_url => fav.img_url).first %> <%= @like.like_count%> -- <%= fav.image_name %></strong>
-    </div>
+  <%@favourites.select("DISTINCT img_url,image_name").each do|fav|  %>
+    <tr>
+      <td><center><%= fav.image_name %></center></td>
+      <td><center><img src="<%= fav.img_url %>" style="width:23%"></center></td>
+      <td><center><%@like = Like.where(:img_url => fav.img_url).first %> <%= @like.like_count%> -- <%= fav.image_name %></center></td>
+    </tr>
+  <% end %>
+</table></center>
 
-<% end %>
+<style>
+
+  table{
+    border-collapse: collapse;
+    width: 90%;
+    }
+  table, th, td {
+    border: 1px solid black;
+  }
+
+</style>

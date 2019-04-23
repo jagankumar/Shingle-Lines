@@ -1,6 +1,7 @@
 <%# This is home page where we can see the images %>
 <!DOCTYPE html>
 <html>
+<h3> <%= link_to "Your Favourites ", favourite_index_url, class: "pull-left" %> <%#= Favourite.where(:user_id => current_user.id).count %> </h3>
 <title>
   Shingle Lines
 </title>
@@ -12,22 +13,18 @@
   <h1>
     Shingle Lines
   </h1>
-  <h3> <%= link_to "Your Favourites ", favourite_index_url, class: "pull-left" %> <%#= Favourite.where(:user_id => current_user.id).count %> </h3>
-</header>
+  </header>
 <main>
   <div class="slideshow-container">
-    <strong></strong><button id="zip" type="button" onclick="Addzip();">Enter new Zipcode   </button></strong><br/><br/>
     <%= select_tag :parent_image, "<option value=''>Select Value</option>".html_safe + options_for_select(@options), :onchange => "selectImage(this)", :class =>"parent"%>
-    <br/><br/>
-    <td>
+    <button id="zip" type="button" class="shingle-button" onclick="Addzip();">Enter new Zipcode</button>
+    <button type="submit" form="form1" id="bookmark" class="shingle-button" value="Submit" >Add as Bookmark</button>
+    <button id="email-btn" class="shingle-button" type="button" onclick="emailFriend();">Email to Friend</button>
+    <br><br>
     <small id ="user"><%=current_user.id %></small>
-    <button id="email-btn" type="button" onclick="emailFriend();">Email to Friend</button>
-    <button type="submit" form="form1" id="bookmark" value="Submit" >Add as Bookmark</button>
-    </td>
     <form>
     <input type="email" name="Email" class="Hidebox" size="35" placeholder="Enter email">
-      <button type="submit" form="form1" id="submitButton" value="Submit" onclick="emailSubmit();">Submit</button>
-
+     <button type="submit" form="form1" id="submitButton" value="Submit" onclick="emailSubmit();">Submit</button>
   </form>
     <div>
     <form class="newZip">
@@ -144,7 +141,7 @@
                 // console.log(data.urls);
                 for (i = 0; i < data.urls.length; i++) {
                     // console.log(i, " : ", data.urls[i]);
-                    imgSlider += '<div class="mySlides fade"><img src="' + data.urls[i] + '" style="width:100%"><div style="float: left; " class="imgtitle">' + data.options[i] + '</div><button style=" margin-left: 25px;" onclick="makeFav();">Add as Favourite</button></div>';
+                    imgSlider += '<div class="mySlides fade"><img src="' + data.urls[i] + '" style="width:100%"><div style="float: left; " class="imgtitle">' + data.options[i] + '</div><button style=" margin-left: 25px;" class="shingle-button" onclick="makeFav();">Add as Favourite</button></div>';
                     imgSliderBottom += '<div class="column"> <img src="' + data.urls[i] + '" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">' + data.options[i] + '</div></div>';
 
                 }
@@ -233,6 +230,7 @@
                 return true;
             } else { // webkit - safari/chrome
                 alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+
             }
         });
 
