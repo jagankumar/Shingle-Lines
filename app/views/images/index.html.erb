@@ -32,7 +32,7 @@
     </div>
     <div id="imgSlider">
       <% @json_response.each do |foo| %>
-        <div class="mySlides fade">
+        <div class="mySlides">
           <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
         </div>
       <% end %>
@@ -137,7 +137,7 @@
                 // console.log(data.urls);
                 for (i = 0; i < data.urls.length; i++) {
                     // console.log(i, " : ", data.urls[i]);
-                    imgSlider += '<div class="mySlides fade"><img src="' + data.urls[i] + '" style="width:100%"><div style="float: left; " class="imgtitle">' + data.options[i] + '</div><button style=" margin-left: 25px;" class="shingle-button" onclick="makeFav();">Add as Favourite</button></div>';
+                    imgSlider += '<div class="mySlides"><img src="' + data.urls[i] + '" style="width:100%"><div style="float: left; " class="imgtitle">' + data.options[i] + '</div><button style=" margin-left: 25px;" class="shingle-button" onclick="makeFav();">Add as Favourite</button></div>';
                     imgSliderBottom += '<div class="column"> <img src="' + data.urls[i] + '" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">' + data.options[i] + '</div></div>';
 
                 }

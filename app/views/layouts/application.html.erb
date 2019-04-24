@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <h1>
-      Shingle Lines
-    </h1>
-    <title>ShingleLines</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>ShingleLines</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <div class="side-menu">
-    <% if user_signed_in? %>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div>
+      <ul class="nav navbar-nav">
 
-      Welcome! <%= current_user.email %>&nbsp;&nbsp;
-      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>&nbsp;&nbsp;
-      <%= link_to "Home", images_index_path %>&nbsp;&nbsp;
-      <%= link_to "Your Favourites ", favourite_index_url, class: "pull-left" %><br><br><br>
-        <% end %></div>
-  </head>
 
-  <body>
-    <%= yield %>
-  </body>
+        <%= csrf_meta_tags %>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+        <% if user_signed_in? %>
+          <li><%= link_to image_tag("oc.jpg", :alt => "Image Description", :class => "icon"), root_path %></li>
+          <li><%= link_to "Home", images_index_path %></li>
+          <li><%= link_to "Your Favourites ", favourite_index_url%></li>
+          </ul></div>
+          <div>  <ul class="nav navbar-nav navbar-right"><li><strong style="color: #008CBA">Welcome! <%= current_user.email %></strong><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li></ul>
+          </div>
+          <%else %>
+          <li><%= link_to image_tag("oc.jpg", :alt => "Image Description", :class => "icon"), root_path %></li>
+
+          </div>
+        <% end %>
+        </nav>
+</head>
+<body>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<%= yield %>
+</body>
 </html>
