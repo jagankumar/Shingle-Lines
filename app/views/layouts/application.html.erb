@@ -20,7 +20,12 @@
           <li><%= link_to "Home", images_index_path %></li>
           <li><%= link_to "Your Favourites ", favourite_index_url%></li>
           </ul></div>
-          <div>  <ul class="nav navbar-nav navbar-right"><li><strong style="color: #008CBA">Welcome! <%= current_user.email %></strong><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li></ul>
+          <div>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="welcome"><strong style="color: #008CBA">Welcome! <%= current_user.email %></li></strong>
+              <li class="signout"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+
+          </ul>
           </div>
           <%else %>
           <li><%= link_to image_tag("oc.jpg", :alt => "Image Description", :class => "icon"), root_path %></li>
