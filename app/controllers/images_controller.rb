@@ -3,14 +3,29 @@ class ImagesController < ApplicationController
   require 'json'
 # This method call when we call home page
   def index
-     @json_response = get_response(params)
-    @array = []
     @options = []
-    @json_response.each do |foo|
-      # @array.push(foo['hero_1600x565_url'])
-      @options.push(foo['name'])
-  end
-  end
+    @json_response = get_response(params)
+        if params[:bookmark_code].present?
+          @url = []
+            @json_response.each do |foo|
+              @options.push(foo['name'])
+              foo['gallery_images'].each do |f|
+                if foo['name'] == params[:bookmark_code]
+                  puts f['name']
+                  if f['name'] == params[:chaild_name]
+
+              @url << f['img_url']
+            end
+            end
+              end
+              end
+        else
+        @array = []
+        @json_response.each do |foo|
+           @options.push(foo['name'])
+          end
+          end
+        end
 
 # This is method which is called by AJAX request and based selected parameter will give the response
   def child_images
@@ -20,7 +35,6 @@ class ImagesController < ApplicationController
     chaild_images = []
     json_response.each do |foo|
       if foo['name'] == params[:select_value]
-        puts foo['name']
         foo['gallery_images'].each do |f|
           select_val << f['name']
           urls << f['img_url']

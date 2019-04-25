@@ -1,14 +1,11 @@
 <%# This is home page where we can see the images %>
 <!DOCTYPE html>
 <html>
-
- <%#= Favourite.where(:user_id => current_user.id).count %> </h3>
 <body>
 <header>
   <div style="text-align: center;">
     <h4 class="flash-msg" style="display: inline-block"></h4>
   </div>
-
   </header>
 <main>
   <div class="slideshow-container">
@@ -31,11 +28,16 @@
     </form>
     </div>
     <div id="imgSlider">
-      <% @json_response.each do |foo| %>
+
+      <%if params[:bookmark_code].present? %>
+          <img src="<%= @url[0] %>" style="width:100%">
+        <%else %>
+        <% @json_response.each do |foo| %>
         <div class="mySlides">
           <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
         </div>
       <% end %>
+        <%end %>
     </div>
   </div>
   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -51,20 +53,36 @@
     <span class="dot" onclick="currentSlide(3)"></span>
   </div>
 
-  <div class="slideshow-container">
-
-    <div class="row">
-      <% @json_response.each do |foo| %>
-        <div class="column">
-          <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
-          <small><%= foo['name'] %></small>
-
-
-        </div>
-      <% end %>
+  <%if params[:bookmark_code].nil? %>
+    <div class="slideshow-container">
+      <div class="row">
+        <% @json_response.each do |foo| %>
+          <div class="column">
+            <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
+            <small><%= foo['name'] %></small>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <%else %>
+      <div class="slideshow-container">
 
+        <div class="row">
+          <% @json_response.each do |foo| %>
+
+                  <% foo['gallery_images'].each do |f|%>
+                    <div class="column">
+                    <% if foo['name'] == params[:bookmark_code] %>
+                      <img src="<%= f['img_url'] %>" style="width:100%">
+                      <small><%= f['name'] %></small>
+                    <%end %>
+                </div>
+                  <%end %>
+
+          <% end %>
+        </div>
+      </div>
+    <%end %>
 
 </main>
 <footer>
@@ -118,7 +136,6 @@
 
     // This method is for showing images on slider and making AJAX call to get urls and names response from controller
     function selectImage() {
-        $('#bookmark').show();
         var select = $("#parent_image").val();
         var imgSlider = "";
         var imgSliderBottom = "";
@@ -131,21 +148,18 @@
             type: "POST",
             success: function (data) {
                 data: {
-                    // result: json.response
                 }
-                // Where we get image urls and pass it to element
-                // console.log(data.urls);
                 for (i = 0; i < data.urls.length; i++) {
                     // console.log(i, " : ", data.urls[i]);
                     imgSlider += '<div class="mySlides"><img src="' + data.urls[i] + '" style="width:100%"><div style="float: left; " class="imgtitle">' + data.options[i] + '</div><button style=" margin-left: 25px;" class="shingle-button" onclick="makeFav();">Add as Favourite</button></div>';
                     imgSliderBottom += '<div class="column"> <img src="' + data.urls[i] + '" style="width:100%"><div style="margin-top: -40px; margin-left: 40px; font-size: 20px; background-color: black; color: white;">' + data.options[i] + '</div></div>';
 
                 }
-                // console.log(imgSlider);
                 $("#imgSlider").html(imgSlider);
                 $(".row").html(imgSliderBottom);
                 plusSlides(1);
                 $('#email-btn').show();
+                $('#bookmark').show();
                 $('#zip-btn').show();
 
             }
@@ -215,24 +229,25 @@
 
 
         $('#bookmark').click(function() {
+            var select_image = $("#parent_image").val();
             var imageName = $('.activeSlide div').html();
             var imgPath = $('.activeSlide img').attr('src');
             var baseUrl = window.location.origin;
             var random = Math.floor(Math.random() * 1000);
-            var imageUrl = baseUrl+"/bookmarks/index?bookmark_code="+random
-            $.ajax({
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                },
-                url: "/bookmarks/create_bookmark",
-                data: {name: imageName, img_path: imgPath, bookmarkCode:random},
-                type: "POST",
-                success: function (data) {
-                    data: {
-                        result: "Email sent sucessfully"
-                    }
-                }
-            });
+            var imageUrl = baseUrl+"/images/index?bookmark_code="+select_image+"&chaild_name="+imageName
+            // $.ajax({
+            //     beforeSend: function (xhr) {
+            //         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            //     },
+            //     url: "/bookmarks/create_bookmark",
+            //     data: {name: imageName, img_path: imgPath, bookmarkCode:random},
+            //     type: "POST",
+            //     success: function (data) {
+            //         data: {
+            //             result: "Email sent sucessfully"
+            //         }
+            //     }
+            // });
             if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
                 window.sidebar.addPanel(imageName, imageUrl, '');
             } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
