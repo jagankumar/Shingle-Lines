@@ -129,11 +129,14 @@
         for (i = 0; i < dots.length; i++) {
             // dots[i].className = dots[i].className.replace(" active", "");
         }
-        slides[slideIndex - 1].style.display = "block";
-        // dots[slideIndex - 1].className += " active";
-        slides[slideIndex - 1].className += " activeSlide";
-    }
+        console.log("slides length", slides.length);
+        if(slides.length > 0){
+            slides[slideIndex - 1].style.display = "block";
+            // dots[slideIndex - 1].className += " active";
+            slides[slideIndex - 1].className += " activeSlide";
+        }
 
+    }
     // This method is for showing images on slider and making AJAX call to get urls and names response from controller
     function selectImage() {
         var select = $("#parent_image").val();
@@ -177,10 +180,7 @@
         $(".newZip").show();
 
      }
-
-
     function emailSubmit() {
-
         var email = $(".Hidebox").val();
         var imageUrl = $('.activeSlide img').attr('src');
         console.log("imageUrl: ", imageUrl);
@@ -205,7 +205,6 @@
         });
 
     }
-
     function makeFav() {
         var name = $('.activeSlide div').html();
         var user_id = $('#user').html();
@@ -226,28 +225,13 @@
         });
 
     }
-
-
-        $('#bookmark').click(function() {
+    $('#bookmark').click(function() {
             var select_image = $("#parent_image").val();
             var imageName = $('.activeSlide div').html();
             var imgPath = $('.activeSlide img').attr('src');
             var baseUrl = window.location.origin;
             var random = Math.floor(Math.random() * 1000);
             var imageUrl = baseUrl+"/images/index?bookmark_code="+select_image+"&chaild_name="+imageName
-            // $.ajax({
-            //     beforeSend: function (xhr) {
-            //         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-            //     },
-            //     url: "/bookmarks/create_bookmark",
-            //     data: {name: imageName, img_path: imgPath, bookmarkCode:random},
-            //     type: "POST",
-            //     success: function (data) {
-            //         data: {
-            //             result: "Email sent sucessfully"
-            //         }
-            //     }
-            // });
             if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
                 window.sidebar.addPanel(imageName, imageUrl, '');
             } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
@@ -260,7 +244,21 @@
 
             }
         });
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
 
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+    var bookmark_code = getUrlParameter('bookmark_code');
+    $('#parent_image').val(bookmark_code);
 </script>
 
 
