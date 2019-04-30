@@ -34,7 +34,7 @@
         <%else %>
         <% @json_response.each do |foo| %>
         <div class="mySlides">
-          <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%">
+          <img src="<%= foo['hero_1600x565_url'] %>" style="width:100%"><%= foo['name'] %>
         </div>
       <% end %>
         <%end %>
@@ -172,12 +172,16 @@
     function emailFriend() {
         $(".Hidebox").show();
         $("#submitButton").show();
+        $(".newZip").hide();
+
     }
     // $( "#zip-btn" ).click(function() {
     //
     // });
     function Addzip(){
         $(".newZip").show();
+        $(".Hidebox").hide();
+        $("#submitButton").hide();
 
      }
     function emailSubmit() {
